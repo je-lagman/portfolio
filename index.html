@@ -3,482 +3,1494 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="images/logo.ico">
-  <link rel="shortcut icon" href="images/logo.ico" type="image/x-icon">
+  <link rel="icon" type="image/x-icon" href="images/jml_logo.svg">
   <title>Jerome Maynard N. Lagman | Software QA Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #00796b;
-      --secondary: #004d40;
-      --accent: #ffca28;
-      --light-bg: #f9f9fb;
-      --text: #333;
-      --card-bg: #ffffff;
+      --teal: #00897b;
+      --teal-dark: #005f56;
+      --teal-light: #4db6ac;
+      --gold: #f9a825;
+      --gold-light: #ffd54f;
+      --bg: #f4f6f5;
+      --surface: #ffffff;
+      --surface2: #eef2f1;
+      --text: #1a2320;
+      --text-muted: #5a6e6a;
+      --border: rgba(0,137,123,0.12);
+      --shadow: 0 4px 24px rgba(0,137,123,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,137,123,0.14);
     }
 
     body.dark {
-      --primary: #26a69a;
-      --secondary: #004d40;
-      --accent: #ffd54f;
-      --light-bg: #1e1e1e;
-      --text: #f1f1f1;
-      --card-bg: #2a2a2a;
+      --bg: #111817;
+      --surface: #1c2422;
+      --surface2: #243230;
+      --text: #e8f0ee;
+      --text-muted: #8aaba6;
+      --border: rgba(77,182,172,0.15);
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background-color: var(--light-bg);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
       color: var(--text);
       line-height: 1.7;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.4s, color 0.4s;
+      overflow-x: hidden;
     }
 
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      text-align: center;
-      padding: 4.5rem 1rem 5.5rem;
-      border-bottom-left-radius: 60px;
-      border-bottom-right-radius: 60px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(244,246,245,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s;
+    }
+
+    body.dark nav { background: rgba(17,24,23,0.88); }
+
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--teal);
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links a:hover { color: var(--teal); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.3s;
+      color: var(--text);
+    }
+
+    .theme-btn:hover { transform: rotate(20deg); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 8rem 2rem 5rem;
       position: relative;
       overflow: hidden;
     }
 
-    header h1 {
-      font-size: 2.8rem;
-      margin: 0;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      opacity: 0.95;
-      max-width: 700px;
-      margin: 1rem auto 0;
-      line-height: 1.5;
-    }
-
-    .highlight {
-      background: var(--accent);
-      color: #333;
-      padding: 0.2rem 0.6rem;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-
-    /* Buttons */
-    .button-container {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-    }
-
-    a.button {
-      background: var(--accent);
-      padding: 0.8rem 1.6rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      color: #333;
-      transition: all 0.25s ease;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    a.button:hover {
-      background: #ffb300;
-      transform: scale(1.06);
-    }
-
-    /* Dark mode toggle */
-    .toggle-container {
+    .hero-bg {
       position: absolute;
-      top: 20px;
-      right: 25px;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 40%, rgba(0,137,123,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 20% 70%, rgba(249,168,37,0.06) 0%, transparent 60%);
+      pointer-events: none;
     }
 
-    .toggle {
-      background: white;
-      border: none;
+    .hero-inner {
+      max-width: 860px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: heroIn 1s ease both;
+    }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .hero-avatar {
+      width: 148px; height: 148px;
       border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      font-size: 1.3rem;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-      transition: transform 0.3s ease;
+      object-fit: cover;
+      border: 3px solid var(--teal-light);
+      box-shadow: 0 0 0 8px rgba(0,137,123,0.1), var(--shadow-lg);
+      transition: transform 0.4s, box-shadow 0.4s;
     }
 
-    .toggle:hover {
-      transform: rotate(15deg);
+    .hero-avatar:hover {
+      transform: scale(1.04);
+      box-shadow: 0 0 0 12px rgba(0,137,123,0.14), var(--shadow-lg);
     }
 
-    main {
-      max-width: 1100px;
-      margin: -3rem auto 4rem;
-      padding: 0 1.5rem;
+    .hero-badge {
+      position: absolute;
+      bottom: 4px; right: 4px;
+      background: var(--gold);
+      color: #1a2320;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 0.25rem 0.5rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      box-shadow: 0 2px 8px rgba(249,168,37,0.4);
     }
 
-    section {
-      background: var(--card-bg);
-      margin-bottom: 2.5rem;
-      padding: 2.5rem 2rem;
-      border-radius: 30px;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
-      transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    h2 {
-      color: var(--primary);
-      margin-bottom: 1.5rem;
-      font-size: 1.9rem;
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      font-size: 0.82rem;
+      color: var(--teal);
       font-weight: 600;
-      text-align: center;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow);
     }
 
-    p {
-      font-size: 1rem;
-      text-align: center;
-      max-width: 850px;
-      margin: 0 auto 1.2rem;
+    .hero-label::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #00c853;
+      box-shadow: 0 0 0 3px rgba(0,200,83,0.2);
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.8rem;
-      margin-top: 1.5rem;
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 2rem 1.5rem;
-      border-radius: 25px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-7px);
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
-    }
-
-    .card h3 {
-      color: var(--primary);
-      margin-bottom: 0.6rem;
-      font-size: 1.3rem;
-    }
-
-    .card h5 {
-      font-weight: 600;
-      margin: 0.2rem 0 0.8rem;
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 1.2rem;
       color: var(--text);
-      font-size: 1rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--teal);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 0.8rem;
+    }
+
+    .hero-quote {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--teal);
+      margin: 0.5rem auto 2rem;
       opacity: 0.85;
     }
 
-    .card p {
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      letter-spacing: 0.2px;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(0,137,123,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--teal-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,137,123,0.38);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      transform: translateY(-2px);
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      animation: fadeInUp 1.5s ease 0.8s both;
+    }
+
+    .scroll-hint .arrow {
+      width: 20px; height: 28px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .scroll-hint .arrow::after {
+      content: '';
+      width: 4px; height: 4px;
+      background: var(--teal);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%; top: 6px;
+      transform: translateX(-50%);
+      animation: scrollDot 1.5s infinite;
+    }
+
+    @keyframes scrollDot {
+      0%   { top: 6px; opacity: 1; }
+      100% { top: 16px; opacity: 0; }
+    }
+
+    /* ── SECTION BASE ── */
+    .section {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(0,137,123,0.08);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      margin-bottom: 0.8rem;
+    }
+
+    .section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0.6rem auto 0;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
       text-align: left;
-      margin: 0.4rem 0;
     }
 
-    .card small {
-      color: gray;
+    .about-text strong { color: var(--text); }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .stat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 1.5rem 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .stat-box:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--teal);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+      font-weight: 500;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 1.6rem 1.2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--gold));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .skill-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .skill-card:hover::before { transform: scaleX(1); }
+
+    .skill-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
       display: block;
-      margin-top: 0.8rem;
-      font-size: 0.9rem;
     }
 
-    .contact {
+    .skill-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .skill-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
       text-align: center;
     }
 
-    .contact a {
-      color: var(--primary);
-      text-decoration: none;
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ── CAROUSEL ── */
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .carousel-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Placeholder slide (emoji fallback) */
+    .carousel-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.8rem;
+    }
+
+    /* Prev / Next buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(0,0,0,0.45);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .carousel-btn:hover { background: rgba(0,137,123,0.75); }
+    .carousel-btn.prev { left: 8px; }
+    .carousel-btn.next { right: 8px; }
+
+    /* Hide buttons when only 1 slide */
+    .carousel[data-count="1"] .carousel-btn { display: none; }
+    .carousel[data-count="1"] .carousel-dots { display: none; }
+
+    /* Dot indicators */
+    .carousel-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 5px;
+      z-index: 10;
+    }
+
+    .carousel-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+
+    /* Slide counter badge */
+    .carousel-counter {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: rgba(0,0,0,0.5);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.68rem;
       font-weight: 600;
-      transition: color 0.2s ease;
+      padding: 0.15rem 0.5rem;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+      z-index: 10;
+      letter-spacing: 0.5px;
     }
 
-    .contact a:hover {
-      text-decoration: underline;
-      color: var(--accent);
+    .carousel[data-count="1"] .carousel-counter { display: none; }
+
+    .project-body {
+      padding: 1.8rem 1.6rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
+    .project-platforms {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.9rem;
+    }
+
+    .platform-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(0,137,123,0.1);
+      color: var(--teal);
+      border: 1px solid rgba(0,137,123,0.2);
+    }
+
+    .project-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      line-height: 1.3;
+    }
+
+    .project-features {
+      list-style: none;
+      margin: 0.8rem 0;
+      flex: 1;
+    }
+
+    .project-features li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.25rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .project-features li::before {
+      content: '↳';
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-size: 0.75rem;
+    }
+
+    .project-section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--teal);
+      margin: 0.8rem 0 0.3rem;
+      opacity: 0.8;
+    }
+
+    .project-tools {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tool-tag {
+      font-size: 0.72rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 6px;
+      background: var(--surface2);
+      color: var(--text-muted);
+      font-weight: 500;
+      border: 1px solid var(--border);
+    }
+
+    .impact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(249,168,37,0.1);
+      color: #c17900;
+      border: 1px solid rgba(249,168,37,0.25);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    body.dark .impact-badge {
+      color: var(--gold-light);
+      background: rgba(249,168,37,0.12);
+    }
+
+    /* ── COMPANIES ── */
+    .companies-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .company-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 3rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      min-width: 220px;
+    }
+
+    .company-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .company-card img {
+      width: 140px;
+      margin-bottom: 1rem;
+    }
+
+    .company-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── ACHIEVEMENTS ── */
+    .achievements-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+    }
+
+    .achievements-grid img {
+      width: 200px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 16px;
+      cursor: pointer;
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .achievements-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.6rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.92rem;
+      box-shadow: var(--shadow);
+      transition: all 0.25s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* ── FOOTER ── */
     footer {
+      background: var(--teal-dark);
+      color: rgba(255,255,255,0.7);
       text-align: center;
       padding: 2rem;
-      background-color: var(--primary);
-      color: white;
-      border-top-left-radius: 50px;
-      border-top-right-radius: 50px;
-      letter-spacing: 0.3px;
-      font-size: 0.95rem;
-    }
-    
-    .card img {
-      display: block;
-      margin: 0 auto 1rem;
-      max-width: 180px;
-      border-radius: 12px;
+      font-size: 0.88rem;
+      border-top-left-radius: 40px;
+      border-top-right-radius: 40px;
     }
 
-    .profile-pic {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--accent);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      margin-bottom: 1.2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+    footer strong { color: #fff; }
 
-    .profile-pic:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    }
-
-    header img, header h1, header p, .button-container {
-      animation: fadeInUp 1s ease forwards;
-    }
-    
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-        /* Lightbox styles */
+    /* ── LIGHTBOX ── */
     .lightbox {
       display: none;
       position: fixed;
       z-index: 1000;
-      padding-top: 60px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.85);
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
       animation: fadeIn 0.3s ease;
     }
-    
-    .lightbox-content {
-      margin: auto;
-      display: block;
-      width: 90%;
-      max-width: 700px;
-      border-radius: 10px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 88%;
+      max-height: 88vh;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     }
-    
-    .close {
+
+    .lightbox-close {
       position: absolute;
-      top: 25px;
-      right: 45px;
+      top: 1.5rem; right: 2rem;
       color: white;
-      font-size: 40px;
-      font-weight: bold;
-      transition: 0.3s;
+      font-size: 2.2rem;
       cursor: pointer;
-    }
-    
-    .close:hover {
-      color: var(--accent);
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      background: none;
+      border: none;
+      line-height: 1;
     }
 
-    /* Achievements image styling */
-    .achievements img {
-      width: 180px;
-      height: auto;
-      border-radius: 15px;
-      margin: 10px;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    }
-    
-    .achievements img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    .lightbox-close:hover { opacity: 1; }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
+      nav { padding: 0.8rem 1.2rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="toggle-container">
-      <button class="toggle" id="theme-toggle" title="Toggle dark mode">🌙</button>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">JML</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#achievements">Achievements</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="theme-toggle" title="Toggle theme">🌙</button>
     </div>
-    <img src="files/profile.png" alt="Jerome Maynard Lagman" class="profile-pic">
+  </nav>
 
-    <h1>Jerome Maynard N. Lagman</h1>
-    <p><span class="highlight">Software QA Engineer</span> | Manual & Automation Testing</p>
-    <p style="font-size:1.1rem; font-weight:600; margin-top:0.5rem; letter-spacing:0.5px;">
-      “QUALITY that <span style="color: var(--accent);">SPEAKS for YOUR BRAND</span>”
-    </p>
-
-    <div class="button-container">
-      <a href="files/SQA Engineer - Jerome Maynard N. Lagman.pdf" class="button">📄 View Resume</a>
-      <a href="#contact" class="button">📬 Contact Me</a>
-    </div>
-  </header>
-
-  <main>
-    <section>
-      <h2>About Me</h2>
-      <p>
-        Hi, I’m <strong>Jerome Maynard Lagman</strong> — a Software Quality Assurance Engineer with over four years of experience ensuring the quality and reliability of web and mobile applications.
-        I specialize in manual and automated testing, covering functional, regression, API, user acceptance, and integration testing.
-        My approach focuses on streamlining QA processes, optimizing workflows, and strengthening product reliability through efficient test automation.
-        With my skills and experience, I can help teams deliver software that performs seamlessly and provides an exceptional user experience.
-      </p>
-    </section>
-
-    <section>
-      <h2>Core Skills</h2>
-      <div class="grid">
-        <div class="card">🧪 <h3>Manual Testing</h3>Functional, Regression, Sanity, UAT, Integration</div>
-        <div class="card">⚙️ <h3>Automation</h3>Selenium, TypeScript, Playwright, GitHub Copilot</div>
-        <div class="card">🌐 <h3>API Testing</h3>Postman, Playwright</div>
-        <div class="card">📊 <h3>Test Management</h3>Jira, Xray</div>
-        <div class="card">🧭 <h3>Bug Tracking</h3>Jira</div>
-        <div class="card">💬 <h3>Agile QA</h3>Scrum, Sprint Testing, CI/CD Pipelines</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-avatar-wrap">
+        <img src="files/profile.png" alt="Jerome Maynard Lagman" class="hero-avatar">
+        <span class="hero-badge">5+ Yrs</span>
       </div>
-    </section>
 
-    <section>
-      <h2>Portfolio Projects</h2>
-          <div class="grid">
-        <div class="card">
-          <h3>Rewards System for Client’s Employees</h3>
-          <h5>Backend & Frontend | Mobile: Android & iOS</h5>
-          <p>• Tested complete revamp of QR code scanning queue for points and transaction workflows.</p>
-          <p>• Automated ~75% of test coverage, reducing regression testing time by 90%.</p>
-          <small>Tools: Jira, Xray, Selenium, Postman</small>
+      <div class="hero-label">Available for new opportunities</div>
+
+      <h1>Jerome Maynard<br><em>N. Lagman</em></h1>
+
+      <p class="hero-sub">Software QA Engineer · Manual &amp; Automation Testing<br>Web &amp; Mobile · API · CI/CD · Agile</p>
+
+      <p class="hero-quote">"Quality that speaks for your brand."</p>
+
+      <div class="hero-ctas">
+        <a href="files/SQA Engineer - Jerome Maynard N. Lagman.pdf" class="btn btn-primary">📄 View Resume</a>
+        <a href="#contact" class="btn btn-outline">📬 Get in Touch</a>
+      </div>
+
+      <div class="scroll-hint">
+        <div class="arrow"></div>
+        <span>Scroll to explore</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-header">
+      <span class="section-tag">About Me</span>
+      <h2>Quality isn't a phase—<br>it's the whole process.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a <strong>Software QA Engineer with 5+ years of experience</strong> helping Agile teams ship reliable, 
+          high-quality web and mobile applications — faster and with confidence.
+        </p>
+        <p>
+          My work spans the full QA spectrum: <strong>manual, API, and automation testing</strong> using Selenium and Playwright, 
+          integrated into CI/CD pipelines to catch defects before they reach users. I've led regression automation 
+          efforts that cut testing cycles by up to <strong>90%</strong>, and delivered end-to-end coverage 
+          across complex, multi-platform products.
+        </p>
+        <p>
+          Beyond testing, I serve as a <strong>QA Lead and stakeholder bridge</strong> — collaborating directly with 
+          developers, product managers, and executive leadership to align quality standards with business goals. 
+          I don't just find bugs; I help build processes that prevent them.
+        </p>
+        <p>
+          Whether it's a loyalty rewards platform, a biometric identification system, or a no-code workflow tool, 
+          I approach every project with the same commitment: <strong>reliable software that users can trust.</strong>
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Years in QA</div>
         </div>
-        <div class="card">
-          <h3>Utility System for Clients, Office Workers, VIPs</h3>
-          <h5>Backend & Frontend | Web & Mobile (AOS, iOS)</h5>
-          <p>• Led end-to-end testing of web version and data reporting system.</p>
-          <p>• Improved data flow accuracy via Excel table validation; automated ~50% of tests.</p>
-          <small>Tools: Jira, Xray, Selenium, Postman</small>
+        <div class="stat-box">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Projects Delivered</div>
         </div>
-        <div class="card">
+        <div class="stat-box">
+          <div class="stat-num">90%</div>
+          <div class="stat-label">Regression Time Saved</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">75%</div>
+          <div class="stat-label">Max Test Automation Coverage</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="section-header">
+      <span class="section-tag">Core Skills</span>
+      <h2>My QA Toolkit</h2>
+      <p class="section-sub">A full-stack testing skill set built through hands-on experience across web, mobile, and API layers.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="skill-icon">🧪</span>
+        <h3>Manual Testing</h3>
+        <p>Functional, Regression, Sanity, UAT, Integration, Exploratory</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">⚙️</span>
+        <h3>Automation</h3>
+        <p>Selenium, Playwright, TypeScript, GitHub Copilot</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🌐</span>
+        <h3>API Testing</h3>
+        <p>Postman, Playwright, REST API validation</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📱</span>
+        <h3>Mobile Testing</h3>
+        <p>Android & iOS — native and hybrid apps</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">📊</span>
+        <h3>Test Management</h3>
+        <p>Jira, Xray — test plans, cycles, reporting</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🔄</span>
+        <h3>CI/CD & Agile</h3>
+        <p>Pipeline integration, Scrum, sprint-based testing</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">🐛</span>
+        <h3>Bug Tracking</h3>
+        <p>Jira — detailed defect lifecycle management</p>
+      </div>
+      <div class="skill-card">
+        <span class="skill-icon">☁️</span>
+        <h3>Cloud & Tools</h3>
+        <p>AWS Rekognition, Twitch API, Excel validation</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-header">
+      <span class="section-tag">Portfolio Projects</span>
+      <h2>Where Quality<br>Meets Delivery</h2>
+      <p class="section-sub">A selection of complex, multi-platform products I've tested end-to-end across my career.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- ═══ Rewards System ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images below as more <div class="carousel-slide"><img src="files/rewards-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#00796b,#004d40);color:#fff;">🏆</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">iOS</span>
+            <span class="platform-tag">Web Admin</span>
+            <span class="platform-tag">Web Client</span>
+          </div>
+          <h3>Rewards System for Client Employees</h3>
+          <p class="project-section-label">Mobile App</p>
+          <ul class="project-features">
+            <li>QR code scanning to earn points for bidding and e-raffle</li>
+            <li>Peer-to-peer points sharing</li>
+            <li>Auction item browsing and e-raffle ticket purchase</li>
+          </ul>
+          <p class="project-section-label">Web Admin</p>
+          <ul class="project-features">
+            <li>Admin, user &amp; client management</li>
+            <li>Event creation &amp; QR code generation</li>
+            <li>E-raffle management &amp; transaction-based points</li>
+          </ul>
+          <p class="project-section-label">Web Client Portal</p>
+          <ul class="project-features">
+            <li>Staff management &amp; points distribution</li>
+            <li>Client-specific QR code generation</li>
+          </ul>
+          <div class="impact-badge">⚡ Reduced regression time by 90% via ~75% automation coverage</div>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span>
+            <span class="tool-tag">Selenium</span><span class="tool-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ Tile-Based Workflow Platform ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/workflow-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#0277bd,#01579b);color:#fff;">🧩</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">iOS</span>
+            <span class="platform-tag">Web</span>
+          </div>
+          <h3>Tile-Based Workflow Management Platform</h3>
+          <p class="project-section-label">Frontend (Mobile &amp; Web)</p>
+          <ul class="project-features">
+            <li>No-code platform automating workflows via interactive tile actions</li>
+            <li>Hierarchy: Books → Pages → Tiles triggering backend processes</li>
+            <li>Tasks: image capture, notifications, spreadsheet updates, link navigation, data submission</li>
+          </ul>
+          <p class="project-section-label">Web Backend</p>
+          <ul class="project-features">
+            <li>Admin/user management</li>
+            <li>Books, pages &amp; tiles configuration</li>
+            <li>Clients, groups &amp; domain-based access control</li>
+          </ul>
+          <div class="impact-badge">🔧 Complex no-code system with multi-layer access validation</div>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span>
+            <span class="tool-tag">Selenium</span><span class="tool-tag">Playwright</span><span class="tool-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ Utility System ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/utility-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#558b2f,#33691e);color:#fff;">🏢</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">iOS</span>
+            <span class="platform-tag">Web</span>
+          </div>
+          <h3>Utility System for Clients, Office Workers &amp; VIPs</h3>
+          <ul class="project-features">
+            <li>End-to-end testing of web version and data reporting system</li>
+            <li>Improved data flow accuracy through Excel table validation</li>
+            <li>Covered client, office worker, and VIP user flows across web &amp; mobile</li>
+          </ul>
+          <div class="impact-badge">⚡ ~50% automation coverage</div>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span>
+            <span class="tool-tag">Selenium</span><span class="tool-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ Identification System ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/id-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#6a1b9a,#4a148c);color:#fff;">🪪</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android Tablet</span>
+            <span class="platform-tag">Web Admin</span>
+          </div>
           <h3>Identification System</h3>
-          <h5>Backend & Frontend | Mobile: Android</h5>
-          <p>• Tested image recognition using AWS Rekognition APIs.</p>
-          <p>• Automated ~30% of tests and cut regression cycle time by 50%.</p>
-          <small>Tools: Jira, Xray, Selenium, Postman</small>
+          <p class="project-section-label">Mobile (Lobby Kiosk)</p>
+          <ul class="project-features">
+            <li>Face detection via AWS Rekognition at office lobbies</li>
+            <li>Identifies employees, visitors &amp; VIPs</li>
+            <li>Label printing: photo, name, details, and office Wi-Fi QR code</li>
+          </ul>
+          <p class="project-section-label">Web Backend</p>
+          <ul class="project-features">
+            <li>Building, admin &amp; printer management</li>
+            <li>Wi-Fi QR generator</li>
+            <li>Pre-registration for VIP visitors</li>
+          </ul>
+          <div class="impact-badge">⚡ ~30% automation · 50% faster regression cycles</div>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span>
+            <span class="tool-tag">AWS Rekognition</span><span class="tool-tag">Selenium</span><span class="tool-tag">Postman</span>
+          </div>
         </div>
       </div>
-    </section>
 
-    <section>
-      <h2>Companies I’ve Worked With</h2>
-      <div class="grid">
-        <div class="card">
-          <img src="files/cs-logo.png" 
-               alt="Cloudstaff Logo" 
-               style="width:160px; margin-bottom:1rem;">
-          <h3>Cloudstaff</h3>
+      <!-- ═══ In/Out System ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/inout-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#e65100,#bf360c);color:#fff;">⏱️</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">iOS</span>
+          </div>
+          <h3>In/Out System for Company Employees</h3>
+          <ul class="project-features">
+            <li>Shift start &amp; end time tracking</li>
+            <li>Change log requests</li>
+            <li>KPI metrics dashboard</li>
+            <li>Attendance sheet management</li>
+          </ul>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span><span class="tool-tag">Postman</span>
+          </div>
         </div>
       </div>
-        </section><section>
-          
-      <h2>Achievements</h2>
-        <div class="achievements" style="text-align:center;">
-          <img src="files/yeha1.jpeg" alt="Achievement 1">
-          <img src="files/yeha2.jpg" alt="Achievement 2">
-          <img src="files/achievement.JPEG" alt="Achievement 3">
-        </div>
-    </section>
 
-    <section id="contact" class="contact">
-      <h2>Contact Me</h2>
-      <p>📧 <a href="mailto:lagman.jerome03@gmail.com" target="_blank" rel="noopener noreferrer">lagman.jerome03@gmail.com</a></p>
-      <p>
-        💼 <a href="https://www.linkedin.com/in/jelagman/" target="_blank" rel="noopener noreferrer">LinkedIn</a> | 
-        💻 <a href="https://github.com/je-lagman" target="_blank" rel="noopener noreferrer">GitHub</a>
-      </p>
-    </section>
-  </main>
+      <!-- ═══ Room Booking System ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/booking-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#00838f,#006064);color:#fff;">🏨</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">Web Admin</span>
+          </div>
+          <h3>Office Rooms Booking System</h3>
+          <p class="project-section-label">Mobile App</p>
+          <ul class="project-features">
+            <li>Employees book rooms via app</li>
+            <li>Extend or end bookings in real-time</li>
+          </ul>
+          <p class="project-section-label">Web Backend</p>
+          <ul class="project-features">
+            <li>Admins view all buildings/rooms bookings</li>
+            <li>Admin room booking &amp; management</li>
+            <li>Admin account management</li>
+          </ul>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span><span class="tool-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ Radio App ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/radio-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#ad1457,#880e4f);color:#fff;">📻</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Android</span>
+            <span class="platform-tag">iOS</span>
+            <span class="platform-tag">Web Admin</span>
+          </div>
+          <h3>Radio App</h3>
+          <p class="project-section-label">Mobile App</p>
+          <ul class="project-features">
+            <li>Live music streaming &amp; song requests to DJ</li>
+            <li>Live listening via Twitch integration</li>
+            <li>Multi-region channel switching: PH, US &amp; India</li>
+          </ul>
+          <p class="project-section-label">Web Backend</p>
+          <ul class="project-features">
+            <li>Admin management &amp; channel configuration</li>
+            <li>DJ live streaming via Twitch (audio only)</li>
+          </ul>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span>
+            <span class="tool-tag">Twitch API</span><span class="tool-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ Proxy Bidding ═══ -->
+      <div class="project-card">
+        <div class="carousel" data-count="1">
+          <div class="carousel-track">
+            <!-- ADD images: <div class="carousel-slide"><img src="files/bidding-1.jpg" alt="..."></div> -->
+            <div class="carousel-slide">
+              <div class="carousel-placeholder" style="background:linear-gradient(135deg,#f57f17,#e65100);color:#fff;">🔨</div>
+            </div>
+          </div>
+          <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
+          <button class="carousel-btn next" aria-label="Next">&#8250;</button>
+          <div class="carousel-dots"></div>
+          <div class="carousel-counter"></div>
+        </div>
+        <div class="project-body">
+          <div class="project-platforms">
+            <span class="platform-tag">Web Frontend</span>
+            <span class="platform-tag">Web Admin</span>
+          </div>
+          <h3>Proxy Bidding Application Using Company Points</h3>
+          <p class="project-section-label">Web Frontend (Users)</p>
+          <ul class="project-features">
+            <li>Browse &amp; bid on auction items with earned points</li>
+            <li>Post personal items for sale</li>
+          </ul>
+          <p class="project-section-label">Web Backend (Admin)</p>
+          <ul class="project-features">
+            <li>Admin management</li>
+            <li>Post auction items publicly or for specific users</li>
+          </ul>
+          <div class="project-tools">
+            <span class="tool-tag">Jira</span><span class="tool-tag">Xray</span>
+            <span class="tool-tag">Selenium</span><span class="tool-tag">Postman</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COMPANIES -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-tag">Experience</span>
+      <h2>Companies I've Worked With</h2>
+    </div>
+    <div class="companies-row">
+      <div class="company-card">
+        <img src="files/cs-logo.png" alt="Cloudstaff Logo">
+        <h3>Cloudstaff</h3>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ACHIEVEMENTS -->
+  <section class="section" id="achievements">
+    <div class="section-header">
+      <span class="section-tag">Achievements</span>
+      <h2>Recognition &amp; Milestones</h2>
+    </div>
+    <div class="achievements-grid">
+      <img src="files/yeha1.jpeg" alt="Achievement 1">
+      <img src="files/yeha2.jpg" alt="Achievement 2">
+      <img src="files/achievement.JPEG" alt="Achievement 3">
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="section-header">
+      <span class="section-tag">Contact</span>
+      <h2>Let's Work Together</h2>
+      <p class="section-sub">Open to QA Engineering roles, freelance projects, and automation consulting.</p>
+    </div>
+    <div class="contact-grid">
+      <a href="mailto:lagman.jerome03@gmail.com" class="contact-link" target="_blank" rel="noopener">
+        📧 lagman.jerome03@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/jelagman/" class="contact-link" target="_blank" rel="noopener">
+        💼 LinkedIn Profile
+      </a>
+      <a href="https://github.com/je-lagman" class="contact-link" target="_blank" rel="noopener">
+        💻 GitHub
+      </a>
+    </div>
+  </section>
 
   <footer>
-    <p>© 2025 Jerome Maynard N. Lagman</p>
+    <p>© 2025 <strong>Jerome Maynard N. Lagman</strong> · Software QA Engineer</p>
   </footer>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <img id="lightbox-img" src="" alt="Enlarged achievement">
+  </div>
+
   <script>
+    // ── Theme ──
     const toggle = document.getElementById('theme-toggle');
+    const applyTheme = (dark) => {
+      document.body.classList.toggle('dark', dark);
+      toggle.textContent = dark ? '☀️' : '🌙';
+    };
     toggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      const isDark = document.body.classList.contains('dark');
-      toggle.textContent = isDark ? '☀️' : '🌙';
+      const isDark = !document.body.classList.contains('dark');
+      applyTheme(isDark);
       localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
+    applyTheme(localStorage.getItem('theme') === 'dark');
 
-    // Persist theme between visits
-    if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-      toggle.textContent = '☀️';
-    }
-
-    </script>
-
-  
-    <!-- Image Lightbox -->
-      <div id="lightbox" class="lightbox">
-        <span class="close">&times;</span>
-        <img class="lightbox-content" id="lightbox-img" alt="enlarged image">
-      </div>
-  
-    <script>
-      const images = document.querySelectorAll('.achievements img');
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      const closeBtn = document.querySelector('.close');
-    
-      images.forEach(img => {
-        img.addEventListener('click', () => {
-          lightbox.style.display = 'block';
-          lightboxImg.src = img.src;
-        });
+    // ── Lightbox (achievements) ──
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.achievements-grid img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
       });
-    
-      closeBtn.addEventListener('click', () => {
-        lightbox.style.display = 'none';
+    });
+    document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('active'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
+
+    // ── Carousel ──
+    document.querySelectorAll('.carousel').forEach(carousel => {
+      const track    = carousel.querySelector('.carousel-track');
+      const slides   = carousel.querySelectorAll('.carousel-slide');
+      const prevBtn  = carousel.querySelector('.carousel-btn.prev');
+      const nextBtn  = carousel.querySelector('.carousel-btn.next');
+      const dotsWrap = carousel.querySelector('.carousel-dots');
+      const counter  = carousel.querySelector('.carousel-counter');
+      const count    = slides.length;
+
+      // Update data-count so CSS can hide controls when only 1 slide
+      carousel.setAttribute('data-count', count);
+
+      let current = 0;
+
+      // Build dots
+      const dots = [];
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `Slide ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+        dots.push(dot);
       });
-    
-      lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) {
-          lightbox.style.display = 'none';
+
+      function updateUI() {
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        counter.textContent = `${current + 1} / ${count}`;
+      }
+
+      function goTo(idx) {
+        current = (idx + count) % count;
+        updateUI();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+
+      // Touch / swipe support
+      let startX = 0;
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+      track.addEventListener('touchend',   e => {
+        const diff = startX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+      });
+
+      // Auto-advance (pause on hover)
+      let timer = count > 1 ? setInterval(() => goTo(current + 1), 4000) : null;
+      carousel.addEventListener('mouseenter', () => { clearInterval(timer); timer = null; });
+      carousel.addEventListener('mouseleave', () => {
+        if (count > 1) timer = setInterval(() => goTo(current + 1), 4000);
+      });
+
+      updateUI();
+    });
+
+    // ── Scroll reveal ──
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
         }
       });
-    </script>
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.project-card, .skill-card, .stat-box, .company-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
