@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/x-icon" href="images/jml_logo.svg">
+  <link rel="icon" type="image/x-icon" href="images/logo.ico">
   <title>Jerome Maynard N. Lagman | Software QA Engineer</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -487,9 +487,16 @@
     .carousel {
       position: relative;
       width: 100%;
-      height: 200px;
+      height: 220px;
       overflow: hidden;
       background: #111;
+      transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: zoom-in;
+    }
+
+    /* On hover: expand to show full image */
+    .carousel:hover {
+      height: 420px;
     }
 
     .carousel-track {
@@ -504,6 +511,7 @@
       height: 100%;
       position: relative;
       flex-shrink: 0;
+      overflow: hidden;
     }
 
     .carousel-slide img {
@@ -511,7 +519,76 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transition: object-fit 0s, object-position 0.4s ease;
     }
+
+    /* On carousel hover: switch to contain so full image is visible */
+    .carousel:hover .carousel-slide img {
+      object-fit: contain;
+    }
+
+    /* Hover hint overlay */
+    .carousel-hint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0);
+      transition: background 0.3s;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .carousel-hint span {
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.25s, transform 0.25s;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .carousel:not(:hover) .carousel-hint span {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Click-to-expand icon */
+    .carousel-expand-icon {
+      position: absolute;
+      bottom: 36px;
+      right: 10px;
+      z-index: 11;
+      background: rgba(0,0,0,0.5);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      width: 28px; height: 28px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s, background 0.2s;
+      backdrop-filter: blur(4px);
+      pointer-events: none;
+    }
+
+    .carousel:hover .carousel-expand-icon {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .carousel-expand-icon:hover { background: rgba(0,137,123,0.8); }
 
     /* Placeholder slide (emoji fallback) */
     .carousel-placeholder {
@@ -540,7 +617,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s;
       backdrop-filter: blur(4px);
     }
 
@@ -595,6 +672,93 @@
     }
 
     .carousel[data-count="1"] .carousel-counter { display: none; }
+
+    /* ── IMAGE LIGHTBOX (project photos) ── */
+    .img-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.25s ease;
+      cursor: zoom-out;
+    }
+
+    .img-lightbox.active { display: flex; }
+
+    .img-lightbox img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      cursor: default;
+      animation: zoomIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .img-lightbox-close {
+      position: absolute;
+      top: 1.2rem; right: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1.4rem;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .img-lightbox-close:hover { background: rgba(0,137,123,0.6); }
+
+    .img-lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1.6rem;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      backdrop-filter: blur(4px);
+    }
+
+    .img-lightbox-nav:hover { background: rgba(0,137,123,0.6); }
+    .img-lightbox-nav.prev { left: 1.5rem; }
+    .img-lightbox-nav.next { right: 1.5rem; }
+
+    .img-lightbox-counter {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.6);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background: rgba(0,0,0,0.4);
+      padding: 0.3rem 0.9rem;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+    }
 
     .project-body {
       padding: 1.8rem 1.6rem;
@@ -928,7 +1092,7 @@
           I don't just find bugs; I help build processes that prevent them.
         </p>
         <p>
-          Whether it's a loyalty  platform, a biometric identification system, or a no-code workflow tool, 
+          Whether it's a loyalty rewards platform, a biometric identification system, or a no-code workflow tool, 
           I approach every project with the same commitment: <strong>reliable software that users can trust.</strong>
         </p>
       </div>
@@ -1039,7 +1203,7 @@
             <span class="platform-tag">Web Admin</span>
             <span class="platform-tag">Web Client</span>
           </div>
-          <h3>Rewards System(Points) for Client Employees</h3>
+          <h3>Rewards System for Client Employees</h3>
           <p class="project-section-label">Mobile App</p>
           <ul class="project-features">
             <li>QR code scanning to earn points for bidding and e-raffle</li>
@@ -1150,10 +1314,10 @@
       <div class="project-card">
         <div class="carousel" data-count="4">
           <div class="carousel-track">
-            <div class="carousel-slide"><img src="images/IMG_3679.PNG" alt="Shift Tracker - Timesheet"></div>
-            <div class="carousel-slide"><img src="images/IMG_3680.PNG" alt="Shift Tracker - Menu & Tools"></div>
-            <div class="carousel-slide"><img src="images/IMG_3681.PNG" alt="Shift Tracker - Change Log Status"></div>
-            <div class="carousel-slide"><img src="images/IMG_3682.PNG" alt="Shift Tracker - KPI Tasks"></div>
+            <div class="carousel-slide"><img src="inout-1.png" alt="Shift Tracker - Timesheet"></div>
+            <div class="carousel-slide"><img src="inout-2.png" alt="Shift Tracker - Menu & Tools"></div>
+            <div class="carousel-slide"><img src="inout-3.png" alt="Shift Tracker - Change Log Status"></div>
+            <div class="carousel-slide"><img src="inout-4.png" alt="Shift Tracker - KPI Tasks"></div>
           </div>
           <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
           <button class="carousel-btn next" aria-label="Next">&#8250;</button>
@@ -1233,10 +1397,11 @@
           <div class="project-platforms">
             <span class="platform-tag">Android</span>
             <span class="platform-tag">iOS</span>
+            <span class="platform-tag">Web Frontend</span>
             <span class="platform-tag">Web Admin</span>
           </div>
           <h3>Radio App</h3>
-          <p class="project-section-label">Frontend: Web | Mobile App</p>
+          <p class="project-section-label">Mobile App &amp; Web Frontend</p>
           <ul class="project-features">
             <li>Live music streaming &amp; song requests to DJ</li>
             <li>Live listening via Twitch integration</li>
@@ -1351,6 +1516,15 @@
     <p>© 2025 <strong>Jerome Maynard N. Lagman</strong> · Software QA Engineer</p>
   </footer>
 
+  <!-- IMAGE LIGHTBOX (project photos) -->
+  <div class="img-lightbox" id="img-lightbox">
+    <button class="img-lightbox-close" id="img-lightbox-close">✕</button>
+    <button class="img-lightbox-nav prev" id="img-lightbox-prev">&#8249;</button>
+    <img id="img-lightbox-img" src="" alt="Project screenshot">
+    <button class="img-lightbox-nav next" id="img-lightbox-next">&#8250;</button>
+    <div class="img-lightbox-counter" id="img-lightbox-counter"></div>
+  </div>
+
   <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lightbox-close">&times;</button>
@@ -1384,6 +1558,49 @@
     lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('active'); });
 
     // ── Carousel ──
+    // Global lightbox state for project images
+    let lbImages = [];
+    let lbIndex  = 0;
+
+    const imgLightbox     = document.getElementById('img-lightbox');
+    const imgLightboxImg  = document.getElementById('img-lightbox-img');
+    const imgLightboxClose= document.getElementById('img-lightbox-close');
+    const imgLightboxPrev = document.getElementById('img-lightbox-prev');
+    const imgLightboxNext = document.getElementById('img-lightbox-next');
+    const imgLightboxCtr  = document.getElementById('img-lightbox-counter');
+
+    function openImgLightbox(images, startIndex) {
+      lbImages = images;
+      lbIndex  = startIndex;
+      showLbSlide();
+      imgLightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLbSlide() {
+      imgLightboxImg.src = lbImages[lbIndex];
+      imgLightboxCtr.textContent = lbImages.length > 1 ? `${lbIndex + 1} / ${lbImages.length}` : '';
+      imgLightboxPrev.style.display = lbImages.length > 1 ? 'flex' : 'none';
+      imgLightboxNext.style.display = lbImages.length > 1 ? 'flex' : 'none';
+    }
+
+    function closeLightbox() {
+      imgLightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    imgLightboxClose.addEventListener('click', closeLightbox);
+    imgLightbox.addEventListener('click', e => { if (e.target === imgLightbox) closeLightbox(); });
+    imgLightboxPrev.addEventListener('click', () => { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; showLbSlide(); });
+    imgLightboxNext.addEventListener('click', () => { lbIndex = (lbIndex + 1) % lbImages.length; showLbSlide(); });
+
+    document.addEventListener('keydown', e => {
+      if (!imgLightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft')  { lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length; showLbSlide(); }
+      if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % lbImages.length; showLbSlide(); }
+    });
+
     document.querySelectorAll('.carousel').forEach(carousel => {
       const track    = carousel.querySelector('.carousel-track');
       const slides   = carousel.querySelectorAll('.carousel-slide');
@@ -1393,18 +1610,35 @@
       const counter  = carousel.querySelector('.carousel-counter');
       const count    = slides.length;
 
-      // Update data-count so CSS can hide controls when only 1 slide
       carousel.setAttribute('data-count', count);
+
+      // Add hover hint overlay
+      const hint = document.createElement('div');
+      hint.className = 'carousel-hint';
+      hint.innerHTML = '<span>🔍 Hover to expand · Click to zoom</span>';
+      carousel.appendChild(hint);
+
+      // Add expand icon
+      const expandIcon = document.createElement('button');
+      expandIcon.className = 'carousel-expand-icon';
+      expandIcon.innerHTML = '⛶';
+      expandIcon.title = 'View full image';
+      carousel.appendChild(expandIcon);
+
+      // Collect real image srcs from this carousel
+      const getImages = () => Array.from(slides)
+        .map(s => s.querySelector('img'))
+        .filter(Boolean)
+        .map(img => img.src);
 
       let current = 0;
 
-      // Build dots
       const dots = [];
       slides.forEach((_, i) => {
         const dot = document.createElement('button');
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
         dot.setAttribute('aria-label', `Slide ${i + 1}`);
-        dot.addEventListener('click', () => goTo(i));
+        dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); });
         dotsWrap.appendChild(dot);
         dots.push(dot);
       });
@@ -1420,18 +1654,31 @@
         updateUI();
       }
 
-      prevBtn.addEventListener('click', () => goTo(current - 1));
-      nextBtn.addEventListener('click', () => goTo(current + 1));
+      prevBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+      nextBtn.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
 
-      // Touch / swipe support
+      // Click anywhere on carousel → open lightbox at current slide
+      carousel.addEventListener('click', () => {
+        const imgs = getImages();
+        if (imgs.length) openImgLightbox(imgs, current);
+      });
+
+      // Expand icon click
+      expandIcon.addEventListener('click', e => {
+        e.stopPropagation();
+        const imgs = getImages();
+        if (imgs.length) openImgLightbox(imgs, current);
+      });
+
+      // Touch / swipe
       let startX = 0;
       track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-      track.addEventListener('touchend',   e => {
+      track.addEventListener('touchend', e => {
         const diff = startX - e.changedTouches[0].clientX;
         if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
       });
 
-      // Auto-advance (pause on hover)
+      // Auto-advance, pause on hover
       let timer = count > 1 ? setInterval(() => goTo(current + 1), 4000) : null;
       carousel.addEventListener('mouseenter', () => { clearInterval(timer); timer = null; });
       carousel.addEventListener('mouseleave', () => {
