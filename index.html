@@ -428,23 +428,42 @@
       overflow: hidden;
     }
 
+    /* Colored top border per skill */
     .skill-card::before {
       content: '';
       position: absolute;
-      bottom: 0; left: 0; right: 0;
+      top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--teal), var(--gold));
-      transform: scaleX(0);
-      transition: transform 0.3s;
+      background: var(--skill-color, var(--teal));
+      border-radius: 20px 20px 0 0;
+      transform: scaleX(0.4);
+      opacity: 0.5;
+      transition: transform 0.35s ease, opacity 0.35s ease;
     }
 
     .skill-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-    .skill-card:hover::before { transform: scaleX(1); }
 
+    .skill-card:hover::before {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+
+    /* Emoji icon background pill on hover */
     .skill-icon {
       font-size: 2rem;
       margin-bottom: 0.8rem;
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--skill-color, var(--teal)) 12%, transparent);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .skill-card:hover .skill-icon {
+      background: color-mix(in srgb, var(--skill-color, var(--teal)) 20%, transparent);
+      transform: scale(1.1);
     }
 
     .skill-card h3 {
@@ -1092,7 +1111,9 @@
           I don't just find bugs; I help build processes that prevent them.
         </p>
         <p>
-          Whether it's a loyalty rewards platform, a biometric identification system, or a no-code workflow tool, 
+          I've worked with both corporate teams and international clients — including a <strong>freelance engagement 
+          with a New Zealand-based client</strong> — delivering the same high standard of quality remotely across 
+          time zones. Whether it's a loyalty rewards platform, a biometric identification system, or a no-code workflow tool, 
           I approach every project with the same commitment: <strong>reliable software that users can trust.</strong>
         </p>
       </div>
@@ -1127,45 +1148,50 @@
       <p class="section-sub">A full-stack testing skill set built through hands-on experience across web, mobile, and API layers.</p>
     </div>
     <div class="skills-grid">
-      <div class="skill-card">
-        <span class="skill-icon">🧪</span>
+      <div class="skill-card" style="--skill-color: #00897b;">
+        <span class="skill-icon">🎯</span>
+        <h3>QA Leadership</h3>
+        <p>QA lead, process improvement, stakeholder collaboration, exec-level reporting</p>
+      </div>
+      <div class="skill-card" style="--skill-color: #1e88e5;">
+        <span class="skill-icon">🔍</span>
         <h3>Manual Testing</h3>
         <p>Functional, Regression, Sanity, UAT, Integration, Exploratory</p>
       </div>
-      <div class="skill-card">
-        <span class="skill-icon">⚙️</span>
-        <h3>Automation</h3>
-        <p>Selenium, Playwright, TypeScript, GitHub Copilot</p>
+      <div class="skill-card" style="--skill-color: #8e24aa;">
+        <span class="skill-icon">🤖</span>
+        <h3>Test Automation</h3>
+        <p>Selenium WebDriver, Playwright, TypeScript, GitHub Copilot, CI/CD pipeline integration</p>
       </div>
-      <div class="skill-card">
-        <span class="skill-icon">🌐</span>
+      <div class="skill-card" style="--skill-color: #f9a825;">
+        <span class="skill-icon">⚡</span>
         <h3>API Testing</h3>
-        <p>Postman, Playwright, REST API validation</p>
+        <p>Postman, Playwright — REST API validation, request chaining, response assertions</p>
       </div>
-      <div class="skill-card">
+      <div class="skill-card" style="--skill-color: #e53935;">
         <span class="skill-icon">📱</span>
         <h3>Mobile Testing</h3>
-        <p>Android & iOS — native and hybrid apps</p>
+        <p>Android &amp; iOS — native and hybrid apps, cross-device &amp; cross-browser coverage</p>
       </div>
-      <div class="skill-card">
-        <span class="skill-icon">📊</span>
+      <div class="skill-card" style="--skill-color: #43a047;">
+        <span class="skill-icon">📝</span>
+        <h3>Test Documentation</h3>
+        <p>Test plans, test cases, test reports, traceability matrices, bug reports</p>
+      </div>
+      <div class="skill-card" style="--skill-color: #fb8c00;">
+        <span class="skill-icon">🗂️</span>
         <h3>Test Management</h3>
-        <p>Jira, Xray — test plans, cycles, reporting</p>
+        <p>Jira, Xray — test cycles, execution tracking, coverage reporting</p>
       </div>
-      <div class="skill-card">
-        <span class="skill-icon">🔄</span>
-        <h3>CI/CD & Agile</h3>
-        <p>Pipeline integration, Scrum, sprint-based testing</p>
+      <div class="skill-card" style="--skill-color: #00acc1;">
+        <span class="skill-icon">🚀</span>
+        <h3>CI/CD &amp; Agile</h3>
+        <p>Scrum, sprint-based testing, pipeline integration, release readiness sign-off</p>
       </div>
-      <div class="skill-card">
-        <span class="skill-icon">🐛</span>
-        <h3>Bug Tracking</h3>
-        <p>Jira — detailed defect lifecycle management</p>
-      </div>
-      <div class="skill-card">
-        <span class="skill-icon">☁️</span>
-        <h3>Cloud & Tools</h3>
-        <p>AWS Rekognition, Twitch API, Excel validation</p>
+      <div class="skill-card" style="--skill-color: #6d4c41;">
+        <span class="skill-icon">🔌</span>
+        <h3>Integrations &amp; Platforms</h3>
+        <p>AWS Rekognition, Twitch API, Excel data validation, QR &amp; biometric workflows</p>
       </div>
     </div>
   </section>
@@ -1315,9 +1341,9 @@
         <div class="carousel" data-count="4">
           <div class="carousel-track">
             <div class="carousel-slide"><img src="images/IMG_3679.PNG" alt="Shift Tracker - Timesheet"></div>
-            <div class="carousel-slide"><img src="images/IMG_3680.PNG" alt="Shift Tracker - Menu & Tools"></div>
-            <div class="carousel-slide"><img src="images/IMG_3681.PNG" alt="Shift Tracker - Change Log Status"></div>
-            <div class="carousel-slide"><img src="images/IMG_3682.PNG" alt="Shift Tracker - KPI Tasks"></div>
+            <div class="carousel-slide"><img src="images/IMG_3679.PNG" alt="Shift Tracker - Menu & Tools"></div>
+            <div class="carousel-slide"><img src="images/IMG_3679.PNG" alt="Shift Tracker - Change Log Status"></div>
+            <div class="carousel-slide"><img src="images/IMG_3679.PNG" alt="Shift Tracker - KPI Tasks"></div>
           </div>
           <button class="carousel-btn prev" aria-label="Previous">&#8249;</button>
           <button class="carousel-btn next" aria-label="Next">&#8250;</button>
@@ -1471,6 +1497,14 @@
       <div class="company-card">
         <img src="files/cs-logo.png" alt="Cloudstaff Logo">
         <h3>Cloudstaff</h3>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.4rem;">Full-time · Philippines</p>
+      </div>
+      <div class="company-card">
+        <div style="width:140px;height:60px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;background:var(--surface2);border-radius:12px;border:1px solid var(--border);">
+          <span style="font-size:1.6rem;">🌏</span>
+        </div>
+        <h3>Confidential Client</h3>
+        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.4rem;">Freelance · New Zealand</p>
       </div>
     </div>
   </section>
